@@ -9,7 +9,7 @@ yarn install
 ## Build
 
 ```
-webpack
+webpack or npx webpack
 ```
 
 ## Start
