@@ -1,4 +1,5 @@
-import '../css/style.css';
+import 'bootstrap'
+import '../style/style'
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
