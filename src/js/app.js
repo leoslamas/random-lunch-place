@@ -1,15 +1,16 @@
-import 'bootstrap'
-import '../style/style'
+import 'bootstrap/dist/js/bootstrap.min'
+import 'bootstrap/dist/css/bootstrap.min'
+import '../css/style'
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+import  Restaurants from './components/restaurants'
 
 function teste() {
     alert("merda");
 }
 
-class Botao extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -20,35 +21,13 @@ class Botao extends Component {
     }
 
     render () {
-        return (
-            <input type="button" onClick={this.handleClick}></input>
+        return (<div>
+            <input type="button" onClick={this.handleClick} value="Click Me"></input>
+            <Restaurants/>
+            </div>
         );
     }
 
 }
 
-class PersonList extends Component {
-    constructor(props){
-        super(props);
-        this.state = { persons: [] };
-    }
-
-    componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                const persons = res.data;
-                this.setState({ persons });
-            })
-    }
-
-    render() {
-        return (
-            <ul>
-                {this.state.persons.map(person => <li>{person.name}</li>)}
-            </ul>
-        )
-    }
-}
-
-ReactDOM.render(<Botao/>, document.getElementById('btn'))
-ReactDOM.render(<PersonList/>, document.getElementById('list'))
+ReactDOM.render(<App/>, document.getElementById('list'))
