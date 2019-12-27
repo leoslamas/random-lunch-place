@@ -1,9 +1,21 @@
 
 const path = require("path");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
-    entry: './src/js/app.js',
+    mode: 'production',
+    entry: [
+        './src/js/app.js',
+        'bootstrap/dist/css/bootstrap.min.css',
+        './src/css/style.css'
+    ],
+    output: {
+        path: path.join(__dirname, "public"),
+        filename: "[name].js",
+        publicPath: "/"
+    },
     module: {
         rules: [{
             test: /\.(js|jsx)$/,
@@ -21,22 +33,15 @@ module.exports = {
                         publicPath: path.join(__dirname, "public"),
                     },
                 },
-                'css-loader',
+                {
+                    loader: 'css-loader'
+                }
             ],
         }]
     },
-    resolve: {
-        extensions: ['*', '.js', '.jsx', '.css']
-    },
-    output: {
-        path: path.join(__dirname, "public"),
-        filename: "bundle.js",
-        publicPath: "/"
-    },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css',
-        }),
+        new MiniCssExtractPlugin({ filename: "[name].css" }),
+        new FixStyleOnlyEntriesPlugin(),
+        new OptimizeCSSAssetsPlugin({})
     ]
 };

@@ -3,13 +3,13 @@
 ## Prepare
 
 ```
-yarn install
+npm install / yarn
 ```
 
 ## Build
 
 ```
-webpack or npx webpack
+npm run build
 ```
 
 ## Start
