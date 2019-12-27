@@ -1,25 +1,29 @@
+
 const path = require("path");
-const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: path.join(__dirname, "./src/js/app.js"),
+    entry: './src/js/app.js',
     module: {
         rules: [{
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
-            },
-            {
-                test: /\.(css|scss)$/,
-                use: [{
-                    loader: 'style-loader', // inject CSS to page
-                }, {
-                    loader: 'css-loader', // translates CSS into CommonJS modules
-                }]
-            },
-        ]
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: {
+                loader: "babel-loader"
+            }
+        },
+        {
+            test: /\.css$/,
+            use: [
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: path.join(__dirname, "public"),
+                    },
+                },
+                'css-loader',
+            ],
+        }]
     },
     resolve: {
         extensions: ['*', '.js', '.jsx', '.css']
@@ -30,10 +34,9 @@ module.exports = {
         publicPath: "/"
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
-    devServer: {
-        hot: true,
-        historyApiFallback: true
-    }
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+        }),
+    ]
 };

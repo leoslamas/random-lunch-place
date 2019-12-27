@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import axios from 'axios';
 
-export default class Restaurants extends Component {
+class Restaurants extends Component {
     constructor(props){
         super(props);
         this.state = { 
@@ -11,7 +11,7 @@ export default class Restaurants extends Component {
     }
 
     componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
+        axios.get('https://jsonplaceholder.typicode.com/users')
             .then(res => {
                 const persons = res.data;
                 this.setState({ persons });
@@ -26,3 +26,5 @@ export default class Restaurants extends Component {
         )
     }
 }
+
+export default Restaurants;
