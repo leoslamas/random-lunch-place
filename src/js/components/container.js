@@ -8,22 +8,24 @@ class Container extends Component {
         super(props);
         this.clickCallback = this.clickCallback.bind(this)
         this.state = { 
-            yet: [], already: [], sort: "Test"
+            yet: [], already: [], sort: ""
         }
     }
 
     componentDidMount() {
-        axios.get('/api/restaurantes')
+        axios.get('/api/restaurants')
             .then(res => {
-                const persons = res.data;
-                this.setState({ yet: persons, already: persons })
+                const data = res.data;
+                this.setState({ yet: data.yet, already: data.already })
             })
     }
 
     clickCallback() {
-        
-
-
+        axios.get('/api/sort')
+            .then(res => {
+                const data = res.data;
+                this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
+            })
     }
 
     render() {
@@ -34,13 +36,13 @@ class Container extends Component {
                     <h1>Almoço</h1>
                     <div className="row h-100">
                         <div className="col-sm my-auto">
-                            <RestList list={this.state.yet} stl="" />
+                            <RestList list={this.state.yet} stl="info" />
                         </div>
                         <div className="col-sm my-auto">
                             <SortPanel sort={this.state.sort} clickCallback={this.clickCallback}/>
                         </div>
                         <div className="col-sm my-auto">
-                            <RestList list={this.state.yet} stl="" />
+                            <RestList list={this.state.yet} stl="danger" />
                         </div>
                     </div>
                 </div>
