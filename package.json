@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf ./public && webpack --mode production",
+    "dev": "rm -rf ./public && webpack --mode development",
     "start": "node ./bin/www"
   },
   "dependencies": {

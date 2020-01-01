@@ -1,34 +1,36 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from 'axios'
+import RestList from './rest-list'
+import SortPanel from './sort-panel';
 
 class Container extends Component {
     constructor(props){
         super(props);
         this.state = { 
-            persons: [] 
-        };
+            yet: [], already: [], sort: "Test"
+        }
     }
 
     componentDidMount() {
         axios.get('https://jsonplaceholder.typicode.com/users')
             .then(res => {
                 const persons = res.data;
-                this.setState({ persons });
+                this.setState({ yet: persons, already: persons })
             })
     }
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
+            <div className="container align-center">
+                <div className="row text-center">
                     <div className="col">
-                        <p>Teste1</p>
+                        <RestList list={this.state.yet} />
                     </div>
                     <div className="col">
-                        <p>Teste1</p>
+                        <SortPanel sort={this.state.sort}/>
                     </div>
                     <div className="col">
-                        <p>Teste1</p>
+                        <RestList list={this.state.yet} />
                     </div>
                 </div>
             </div>
@@ -36,4 +38,4 @@ class Container extends Component {
     }
 }
 
-export default Container;
+export default Container
