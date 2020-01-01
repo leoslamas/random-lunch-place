@@ -13,7 +13,7 @@ class Container extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('/api/restaurantes')
             .then(res => {
                 const persons = res.data;
                 this.setState({ yet: persons, already: persons })
@@ -22,7 +22,7 @@ class Container extends Component {
 
     clickCallback() {
         
-        
+
 
     }
 
