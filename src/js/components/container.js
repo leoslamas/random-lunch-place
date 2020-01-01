@@ -6,6 +6,7 @@ import SortPanel from './sort-panel';
 class Container extends Component {
     constructor(props){
         super(props);
+        this.clickCallback = this.clickCallback.bind(this)
         this.state = { 
             yet: [], already: [], sort: "Test"
         }
@@ -19,18 +20,28 @@ class Container extends Component {
             })
     }
 
+    clickCallback() {
+        
+        
+
+    }
+
     render() {
         return (
-            <div className="container align-center">
-                <div className="row text-center">
-                    <div className="col">
-                        <RestList list={this.state.yet} />
-                    </div>
-                    <div className="col">
-                        <SortPanel sort={this.state.sort}/>
-                    </div>
-                    <div className="col">
-                        <RestList list={this.state.yet} />
+            
+            <div className="jumbotron">
+                <div className="container align-center text-center">
+                    <h1>Almoço</h1>
+                    <div className="row h-100">
+                        <div className="col-sm my-auto">
+                            <RestList list={this.state.yet} stl="" />
+                        </div>
+                        <div className="col-sm my-auto">
+                            <SortPanel sort={this.state.sort} clickCallback={this.clickCallback}/>
+                        </div>
+                        <div className="col-sm my-auto">
+                            <RestList list={this.state.yet} stl="" />
+                        </div>
                     </div>
                 </div>
             </div>
