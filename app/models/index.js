@@ -4,7 +4,9 @@ const Sequelize = require('sequelize');
 //const config = require('../../config/database.js');
 
 const db = {};
-const sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL)
+const sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+  dialect: 'mysql'
+})
 
 fs
   .readdirSync(__dirname)
