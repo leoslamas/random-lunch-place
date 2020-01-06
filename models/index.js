@@ -4,6 +4,7 @@ if (!global.hasOwnProperty('db')) {
   
     if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
       // the application is executed on Heroku ... use the postgres database
+      console.log(process.env.HEROKU_POSTGRESQL_BRONZE_URL);
       sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
         dialect:  'postgres',
         protocol: 'postgres',
@@ -13,13 +14,14 @@ if (!global.hasOwnProperty('db')) {
       })
     } else {
       // the application is executed on the local machine ... use mysql
-      sequelize = new Sequelize('example-app-db', 'root', null)
+      sequelize = new Sequelize('almoco_random', 'root', null)
     }
   
     global.db = {
       Sequelize: Sequelize,
       sequelize: sequelize,
-      Restaurants:      sequelize.import(__dirname + '/restaurants') 
+      Restaurants:      sequelize.import(__dirname + '/restaurants'),
+      Used:      sequelize.import(__dirname + '/used')
       // add your other models here
     }
   
