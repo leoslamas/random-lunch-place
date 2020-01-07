@@ -30,7 +30,7 @@ class Container extends Component {
     }
 
     removeCallback() {
-        axios.delete('/api/remove')
+        axios.delete('/api/remove/13')
             .then(res => {
                 const data = res.data;
                 this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
