@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../models');
+
 const {
   Restaurants,
   Useds
@@ -33,7 +35,19 @@ router.get('/sort', function (req, res, next) {
 
       if (lastUsed == undefined || (today.getDate() !== lastUsed.date.getDate() && today.getMonth() !== lastUsed.date.getMonth())) {
         
-        Useds.create({ name: nextRest.name, date: new Date() })
+        db.sequelize.transaction(t => {
+          return Promise.all([
+            Useds.create({ name: nextRest.name, date: new Date() }),
+            Restaurants.destroy({ where: { name: nextRest.name } })
+          ])
+        }).then(result => {
+            useds.push({ id: nextRest.id, name: nextRest.name, date: new Date() })
+            rests = rests.filter(item => item.id !== nextRest.id);
+
+            res.json({ yet: rests, already: useds, sorted: nextRest.name });
+        });
+
+        /*Useds.create({ name: nextRest.name, date: new Date() })
           .then(rest => {
 
             Restaurants.destroy({ where: { name: rest.name } })
@@ -44,10 +58,12 @@ router.get('/sort', function (req, res, next) {
 
                 res.json({ yet: rests, already: useds, sorted: nextRest.name });
               });
-          });
+          });*/
 
       } else {
+
         res.json({ yet: rests, already: useds, sorted: lastUsed.name });
+        
       }
     });
 });
