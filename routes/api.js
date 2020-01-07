@@ -1,24 +1,18 @@
 var express = require('express');
 var router = express.Router();
-const { Restaurants, Used } = require('../app/models');
+const {
+  Restaurants,
+  Used
+} = require('../app/models');
 
 router.get('/restaurants', function (req, res, next) {
-  var rest = {};
-  var used = {};
-
-  var r = Restaurants.findAll()
-    .then((result) => {
-      rest = result;
+  Restaurants.findAll()
+    .then(rest => {
+      Used.findAll()
+        .then(used => {
+          res.json({yet: rest, already: used});
+        });
     });
-
-  var u = Used.findAll()
-    .then((result) => {
-      used = result;
-    });
-
-  Promise.all([r, u]);
-
-  res.send({ yet: rest, already: used });
 });
 
 router.get('/sort', function (req, res, next) {
