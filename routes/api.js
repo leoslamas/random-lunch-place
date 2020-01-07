@@ -16,7 +16,7 @@ router.get('/restaurants', function (req, res, next) {
       used = result;
     });
 
-  await Promises.all([r, u]);
+  Promises.all([r, u]);
 
   res.send({ yet: rest, already: used });
 });
