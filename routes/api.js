@@ -60,7 +60,7 @@ router.get('/sort', (req, res, next) => {
 });
 
 //remove
-router.get('/remove/:id', (req, res) => {
+router.delete('/remove/:id', (req, res) => {
   console.log(`Parameters: ${req.params.id}`);
   res.json({id:req.params.id});
 });
