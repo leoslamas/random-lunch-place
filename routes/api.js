@@ -12,10 +12,7 @@ router.get('/restaurants', function (req, res, next) {
 
   Promise.all([restProm, usedsProm])
     .then(values => {
-      res.json({
-        yet: values[0],
-        already: values[1]
-      });
+      res.json({ yet: values[0], already: values[1] });
     });
 });
 
@@ -29,12 +26,17 @@ router.get('/sort', function (req, res, next) {
       var today = new Date();
       var rests = values[0];
       var useds = values[1];
-      var lastUsed = [];
-      if (useds.length > 0) lastUsed = useds[useds.length-1];
 
+      if (useds.length > 0) {
+        var lastUsed = useds[useds.length-1];
+      } else {
+        var lastUsed = { name: "", date: new Date() };
+      }
+      
       var nextRest = rests[Math.floor(Math.random() * rests.length)];
-
+      
       if (today.getDate() !== lastUsed.date.getDate() && today.getMonth() !== lastUsed.date.getMonth()) {
+        
         Useds.create({ name: nextRest.name, date: new Date() })
           .then(rest => {
 
