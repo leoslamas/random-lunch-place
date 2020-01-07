@@ -3,7 +3,7 @@ var router = express.Router();
 const {
   Restaurants,
   Useds
-} = require('../app/models');
+} = require('../models');
 
 router.get('/restaurants', function (req, res, next) {
   Restaurants.findAll()
