@@ -42,7 +42,7 @@ class Container extends Component {
                             <SortPanel sort={this.state.sort} clickCallback={this.clickCallback}/>
                         </div>
                         <div className="col-sm my-auto">
-                            <RestList list={this.state.yet} stl="danger" />
+                            <RestList list={this.state.already} stl="danger" />
                         </div>
                     </div>
                 </div>
