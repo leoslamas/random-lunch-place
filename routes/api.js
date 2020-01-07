@@ -6,12 +6,12 @@ const {
 } = require('../models');
 
 router.get('/restaurants', function (req, res, next) {
-  Restaurants.findAll()
-    .then(rest => {
-      Useds.findAll()
-        .then(useds => {
-          res.json({yet: rest, already: useds});
-        });
+  var restProm = Restaurants.findAll();
+  var usedsProm = Useds.findAll();
+
+  Promise.all([restProm, usedsProm])
+    .then(values => {
+      res.json({ yet: values[0], already: values[1] });
     });
 });
 
