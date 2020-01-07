@@ -8,7 +8,7 @@ const {
 } = require('../models');
 
 //restaurants
-router.get('/restaurants', function (req, res, next) {
+router.get('/restaurants', (req, res, next) => {
   var restProm = Restaurants.findAll();
   var usedsProm = Useds.findAll();
 
@@ -19,7 +19,7 @@ router.get('/restaurants', function (req, res, next) {
 });
 
 //sort
-router.get('/sort', function (req, res, next) {
+router.get('/sort', (req, res, next) => {
   var restProm = Restaurants.findAll();
   var usedsProm = Useds.findAll();
 
@@ -36,29 +36,20 @@ router.get('/sort', function (req, res, next) {
       if (lastUsed == undefined || (today.getDate() !== lastUsed.date.getDate() && today.getMonth() !== lastUsed.date.getMonth())) {
         
         db.sequelize.transaction(t => {
+
           return Promise.all([
             Useds.create({ name: nextRest.name, date: new Date() }),
             Restaurants.destroy({ where: { name: nextRest.name } })
           ])
+
         }).then(result => {
-            useds.push({ id: nextRest.id, name: nextRest.name, date: new Date() })
-            rests = rests.filter(item => item.id !== nextRest.id);
+          
+          useds.push({ id: nextRest.id, name: nextRest.name, date: new Date() })
+          rests = rests.filter(item => item.id !== nextRest.id);
 
-            res.json({ yet: rests, already: useds, sorted: nextRest.name });
+          res.json({ yet: rests, already: useds, sorted: nextRest.name });
+
         });
-
-        /*Useds.create({ name: nextRest.name, date: new Date() })
-          .then(rest => {
-
-            Restaurants.destroy({ where: { name: rest.name } })
-              .then(destroyed => {
-
-                useds.push({ id: rest.id, name: rest.name, date: new Date() })
-                rests = rests.filter(item => item.id !== rest.id);
-
-                res.json({ yet: rests, already: useds, sorted: nextRest.name });
-              });
-          });*/
 
       } else {
 
@@ -66,6 +57,12 @@ router.get('/sort', function (req, res, next) {
         
       }
     });
+});
+
+//remove
+router.get('/remove/:id', (req, res) => {
+  console.log(`Parameters: ${req.params.id}`);
+  res.json({id:req.params.id});
 });
 
 module.exports = router;

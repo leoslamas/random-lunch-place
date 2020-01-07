@@ -6,7 +6,8 @@ import SortPanel from './sort-panel';
 class Container extends Component {
     constructor(props){
         super(props);
-        this.clickCallback = this.clickCallback.bind(this)
+        this.sortCallback = this.sortCallback.bind(this)
+        this.removeCallback = this.removeCallback.bind(this)
         this.state = { 
             yet: [], already: [], sort: ""
         }
@@ -16,12 +17,20 @@ class Container extends Component {
         axios.get('/api/restaurants')
             .then(res => {
                 const data = res.data;
-                this.setState({ yet: data.yet, already: data.already })
+                this.setState({ yet: data.yet, already: data.already, sort: data.sorted })
             })
     }
 
-    clickCallback() {
+    sortCallback() {
         axios.get('/api/sort')
+            .then(res => {
+                const data = res.data;
+                this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
+            })
+    }
+
+    removeCallback() {
+        axios.delete('/api/remove')
             .then(res => {
                 const data = res.data;
                 this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
@@ -39,10 +48,10 @@ class Container extends Component {
                             <RestList list={this.state.yet} stl="info" />
                         </div>
                         <div className="col-sm my-auto">
-                            <SortPanel sort={this.state.sort} clickCallback={this.clickCallback}/>
+                            <SortPanel sort={this.state.sort} sortCallback={this.sortCallback} removeCallback={this.removeCallback}/>
                         </div>
                         <div className="col-sm my-auto">
-                            <RestList list={this.state.already} stl="danger" />
+                            <RestList id="sorted-list" list={this.state.already} stl="danger" />
                         </div>
                     </div>
                 </div>
