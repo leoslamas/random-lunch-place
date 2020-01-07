@@ -19,7 +19,7 @@ class SortPanel extends Component {
                         </div>
                         <div className="row">
                             <div className="col-sm my-auto">
-                                <a href="#" onClick={this.props.removeCallback} className="btn btn-danger">Remover Último</a>
+                                <a href="#" onClick={this.props.removeCallback} className="btn btn-danger">Remover</a>
                             </div>
                         </div>
                     </div>
