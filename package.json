@@ -23,7 +23,8 @@
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "sequelize": "^5.21.3"
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
@@ -35,7 +36,6 @@
     "css-loader": "^3.4.0",
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "sequelize-cli": "^5.5.1",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-fix-style-only-entries": "^0.4.0"
