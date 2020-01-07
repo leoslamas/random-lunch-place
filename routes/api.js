@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 const {
   Restaurants,
-  Used
+  Useds
 } = require('../app/models');
 
 router.get('/restaurants', function (req, res, next) {
   Restaurants.findAll()
     .then(rest => {
-      Used.findAll()
-        .then(used => {
-          res.json({yet: rest, already: used});
+      Useds.findAll()
+        .then(useds => {
+          res.json({yet: rest, already: useds});
         });
     });
 });
