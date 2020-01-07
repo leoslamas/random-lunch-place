@@ -8,6 +8,7 @@ class Container extends Component {
         super(props);
         this.sortCallback = this.sortCallback.bind(this)
         this.removeCallback = this.removeCallback.bind(this)
+        this.handleChange = this.handleChange.bind(this)
         this.state = { 
             yet: [], already: [], sort: ""
         }
@@ -30,11 +31,11 @@ class Container extends Component {
     }
 
     removeCallback() {
-        axios.delete('/api/remove/13')
-            .then(res => {
-                const data = res.data;
-                this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
-            })
+        console.log('/api/remove/?');
+    }
+
+    handleChange(e){
+        console.log(e.target.value);
     }
 
     render() {
@@ -51,7 +52,7 @@ class Container extends Component {
                             <SortPanel sort={this.state.sort} sortCallback={this.sortCallback} removeCallback={this.removeCallback}/>
                         </div>
                         <div className="col-sm my-auto">
-                            <RestList id="sorted-list" list={this.state.already} stl="danger" />
+                            <RestList id="sorted-list" list={this.state.already} stl="danger" handler={this.handleChange}/>
                         </div>
                     </div>
                 </div>
