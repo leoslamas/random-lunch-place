@@ -8,6 +8,7 @@ module.exports = {
     mode: 'production',
     entry: [
         './src/js/app.js',
+        'jquery/dist/jquery.js',
         'bootstrap/dist/css/bootstrap.min.css',
         './src/css/style.css'
     ],
