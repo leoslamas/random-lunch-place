@@ -61,8 +61,9 @@ router.get('/sort', (req, res, next) => {
 
 //remove
 router.delete('/remove/:id', (req, res) => {
-  Useds.findByPk(req.params.id)
+  Useds.findById(req.params.id)
     .then(used => {
+      if (used == null || used == undefined) return;
 
       db.sequelize.transaction(t => {
         
