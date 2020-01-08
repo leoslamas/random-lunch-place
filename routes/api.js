@@ -76,18 +76,23 @@ router.delete('/remove/:id', (req, res) => {
 
     var removed = useds.find(item => item.id == req.params.id) || rests.find(item => item.id == req.params.id);
 
-    useds = useds.filter(item => item.name != removed.name);
-    rests.push({ name: removed.name })
+    db.sequelize.transaction(t => {
 
-    Promise.all([
-      Useds.destroy({ where: { id: removed.id } }),
-      Restaurants.create({ name: removed.name })
-    ]).then(r => {
+      return Promise.all([
+        Useds.destroy({ where: { id: removed.id } }),
+        Restaurants.create({ name: removed.name })
+      ])
 
-      res.json({ yet: rests, already: useds, sorted: "" })
+    }).then(result => {
+    
+      useds = useds.filter(item => item.name != removed.name);
+      rests.push({ name: removed.name })
+
+      res.json({ yet: rests, already: useds, sorted: "" });
 
     }).catch(e1 => {
       console.error(e1);
+      res.json({ yet: rests, already: useds, sorted: "" });
     });
 
   }).catch(e2 => {
