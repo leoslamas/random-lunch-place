@@ -68,22 +68,23 @@ router.delete('/remove/:id', (req, res) => {
   
   Promise.all([
     Restaurants.findAll(),
-    Useds.findAll(),
-    Useds.destroy({ where: { id: req.params.id } })
+    Useds.findAll()
   ]).then(result => {
-    var useds = result[0];
-    var rests = result[1];
+    var rests = result[0];
+    var useds = result[1];
 
     var removed = useds.find(item => item.id == req.params.id) || rests.find(item => item.id == req.params.id);
     useds = useds.filter(item => item.name != removed.name);
-    
-    if(rests.find(item => item.name == removed.name) == undefined) {
-      rests.push({ name: removed.name })
-    }
+    rests.push({ name: removed.name })
 
-    Restaurants.create({ name: removed.name });
+    Promise.all([
+      Useds.destroy({ where: { id: removed.id } }),
+      Restaurants.create({ name: removed.name })
+    ]).then(r => {
 
-    res.json({ yet: rests, already: useds, sorted: "" })
+      res.json({ yet: rests, already: useds, sorted: "" })
+
+    });
   });
 });
 
