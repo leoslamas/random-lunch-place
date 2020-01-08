@@ -61,7 +61,7 @@ router.get('/sort', (req, res, next) => {
 
 //remove
 router.delete('/remove/:id', (req, res) => {
-  Model.destroy({ where: { id: req.params.id } })
+  Useds.destroy({ where: { id: req.params.id } })
     .then(res => {
       var restProm = Restaurants.findAll();
       var usedsProm = Useds.findAll();
