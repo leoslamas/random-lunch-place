@@ -4,6 +4,7 @@ import RestList from './rest-list'
 import SortPanel from './sort-panel';
 
 class Container extends Component {
+    choice=0;
     constructor(props){
         super(props);
         this.sortCallback = this.sortCallback.bind(this)
@@ -31,11 +32,17 @@ class Container extends Component {
     }
 
     removeCallback() {
-        console.log('/api/remove/?');
+        if (this.choice !== 0) {
+        axios.get(`/api/remove/${this.choice}`)
+            .then(res => {
+                const data = res.data;
+                this.setState({ yet: data.yet, already: data.already })
+            })
+        }
     }
 
     handleChange(e){
-        console.log(e.target.value);
+        this.choice = e.target.value;
     }
 
     render() {
