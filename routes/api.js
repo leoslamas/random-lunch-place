@@ -74,6 +74,7 @@ router.delete('/remove/:id', (req, res) => {
     var useds = result[1];
 
     var removed = useds.find(item => item.id == req.params.id) || rests.find(item => item.id == req.params.id);
+
     useds = useds.filter(item => item.name != removed.name);
     rests.push({ name: removed.name })
 
@@ -84,7 +85,12 @@ router.delete('/remove/:id', (req, res) => {
 
       res.json({ yet: rests, already: useds, sorted: "" })
 
+    }).catch(e1 => {
+      console.error(e1);
     });
+    
+  }).catch(e2 => {
+    console.error(e2);
   });
 });
 
