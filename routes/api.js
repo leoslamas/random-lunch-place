@@ -61,22 +61,31 @@ router.get('/sort', (req, res, next) => {
 
 //remove
 router.delete('/remove/:id', (req, res) => {
-  Useds.destroy({ where: { id: req.params.id } })
-    .then(result => {
-      var newRest = Restaurants.create({ name: result.name });
-      var restProm = Restaurants.findAll();
-      var usedsProm = Useds.findAll();
+  Useds.findByPk(req.params.id)
+    .then(used => {
 
-      Promise.all([restProm, usedsProm, newRest])
-        .then(values => {
-          var rests = values[0];
-          var useds = values[1];
-          var newR = values[2];
+      db.sequelize.transaction(t => {
+        
+        return Promise.all([
+          Useds.destroy({ where: { id: used.id } }),
+          Restaurants.create({ name: used.name })
+        ])
+      
+      }).then(r => {
+        
+        Promise.all(
+          
+          Restaurants.findAll(),
+          Useds.findAll()
+          
+        ).then(results => {
+          
+          var restAll = results[0];
+          var usedsAll = results[1];
 
-          rests.push(newR);
-
-          res.json({ yet: rests, already: useds, sorted: "" });
+          res.json({ yet: restAll, already: usedsAll, sorted: "" });
         });
+      });
     });
 });
 
