@@ -36,7 +36,7 @@ class Container extends Component {
             axios.delete(`/api/remove/${this.choice}`)
                 .then(res => {
                     const data = res.data;
-                    this.setState({ yet: data.yet, already: data.already })
+                    this.setState({ yet: data.yet, already: data.already, sort: data.sorted })
                 })
             this.choice = -1;
         }
