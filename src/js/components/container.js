@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import RestList from './rest-list'
 import SortPanel from './sort-panel';
+import $ from 'jquery';
 
 class Container extends Component {
     choice=-1;
@@ -20,23 +21,29 @@ class Container extends Component {
             .then(res => {
                 const data = res.data;
                 this.setState({ yet: data.yet, already: data.already, sort: data.sorted })
+                $('#loading').hide();
             })
     }
 
     sortCallback() {
+        $('#loading').show();
         axios.get('/api/sort')
             .then(res => {
                 const data = res.data;
                 this.setState({ yet: data.yet , already: data.already, sort: data.sorted })
+                $('#loading').hide();
             })
+            
     }
 
     removeCallback() {
         if (this.choice >= 0) {
+            $('#loading').show();
             axios.delete(`/api/remove/${this.choice}`)
                 .then(res => {
                     const data = res.data;
                     this.setState({ yet: data.yet, already: data.already, sort: data.sorted })
+                    $('#loading').hide();
                 })
             this.choice = -1;
         }
