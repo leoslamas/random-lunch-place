@@ -61,33 +61,30 @@ router.get('/sort', (req, res, next) => {
 
 //remove
 router.delete('/remove/:id', (req, res) => {
-  Useds.findOne({ where: { id: req.params.id }})
-    .then(used => {
-      if (used == null || used == undefined) return;
+  if (isNaN(req.params.id)) {
+    res.json({}); 
+    return;
+  }
+  
+  Promise.all([
+    Restaurants.findAll(),
+    Useds.findAll(),
+    Useds.destroy({ where: { id: req.params.id } })
+  ]).then(res => {
+    var useds = res[0];
+    var rests = res[1];
 
-      db.sequelize.transaction(t => {
-        
-        return Promise.all([
-          Useds.destroy({ where: { name: used.name } }),
-          Restaurants.create({ name: used.name })
-        ])
-      
-      }).then(r => {
-        
-        Promise.all([
-          
-          Restaurants.findAll(),
-          Useds.findAll()
-          
-        ]).then(results => {
-          
-          var restAll = results[0];
-          var usedsAll = results[1];
+    var removed = useds.find(item => item.id == req.params.id) || rests.find(item => item.id == req.params.id);
+    useds = useds.filter(item => item.name != removed.name);
+    
+    if(rests.find(item => item.name == removed.name) == undefined) {
+      rests.push({ name: removed.name })
+    }
 
-          res.json({ yet: restAll, already: usedsAll, sorted: "" });
-        });
-      });
-    });
+    Restaurants.create({ name: removed.name });
+
+    res.json({ yet: rests, already: useds, sorted: "" })
+  });
 });
 
 module.exports = router;
