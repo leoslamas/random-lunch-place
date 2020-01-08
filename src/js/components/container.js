@@ -53,7 +53,7 @@ class Container extends Component {
                 <div className="container align-center text-center">
                     <h1>Almoço</h1>
                     <div className="row h-100">
-                        <div className="col-sm my-auto">
+                        <div className="col-sm my-auto hidden-sm">
                             <RestList list={this.state.yet} stl="info" />
                         </div>
                         <div className="col-sm my-auto">
