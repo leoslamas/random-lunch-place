@@ -13,8 +13,8 @@ class SortPanel extends Component {
                     <hr className="my-4"></hr>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm my-auto"></div>
-                                <div id="loading" className="spinner-border text-dark" role="status"/>
+                            <div className="col-sm my-auto">
+                                <div id="loading" className="spinner-border text-dark" role="status" />
                             </div>
                         </div>
                         <div className="row">
