@@ -33,7 +33,7 @@ class Container extends Component {
 
     removeCallback() {
         if (this.choice >= 0) {
-        axios.get(`/api/remove/${this.choice}`)
+        axios.delete(`/api/remove/${this.choice}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ yet: data.yet, already: data.already })
