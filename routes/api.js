@@ -67,7 +67,7 @@ router.delete('/remove/:id', (req, res) => {
       db.sequelize.transaction(t => {
         
         return Promise.all([
-          Useds.destroy({ where: { id: used.id } }),
+          Useds.destroy({ where: { name: used.name } }),
           Restaurants.create({ name: used.name })
         ])
       
