@@ -73,12 +73,12 @@ router.delete('/remove/:id', (req, res) => {
       
       }).then(r => {
         
-        Promise.all(
+        Promise.all([
           
           Restaurants.findAll(),
           Useds.findAll()
           
-        ).then(results => {
+        ]).then(results => {
           
           var restAll = results[0];
           var usedsAll = results[1];
