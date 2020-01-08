@@ -70,9 +70,9 @@ router.delete('/remove/:id', (req, res) => {
     Restaurants.findAll(),
     Useds.findAll(),
     Useds.destroy({ where: { id: req.params.id } })
-  ]).then(res => {
-    var useds = res[0];
-    var rests = res[1];
+  ]).then(result => {
+    var useds = result[0];
+    var rests = result[1];
 
     var removed = useds.find(item => item.id == req.params.id) || rests.find(item => item.id == req.params.id);
     useds = useds.filter(item => item.name != removed.name);
