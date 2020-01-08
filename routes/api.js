@@ -61,7 +61,7 @@ router.get('/sort', (req, res, next) => {
 
 //remove
 router.delete('/remove/:id', (req, res) => {
-  Useds.findById(req.params.id)
+  Useds.findOne({ where: { id: req.params.id }})
     .then(used => {
       if (used == null || used == undefined) return;
 
