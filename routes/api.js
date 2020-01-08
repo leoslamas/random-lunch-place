@@ -62,16 +62,20 @@ router.get('/sort', (req, res, next) => {
 //remove
 router.delete('/remove/:id', (req, res) => {
   Useds.destroy({ where: { id: req.params.id } })
-    .then(res => {
+    .then(result => {
+      var newRest = Restaurants.create({ name: result.name });
       var restProm = Restaurants.findAll();
       var usedsProm = Useds.findAll();
 
-      Promise.all([restProm, usedsProm])
+      Promise.all([restProm, usedsProm, newRest])
         .then(values => {
           var rests = values[0];
           var useds = values[1];
+          var newR = values[2];
 
-          res.json({ yet: rests, already: useds });
+          rests.push(newR);
+
+          res.json({ yet: rests, already: useds, sorted: "" });
         });
     });
 });
