@@ -43,8 +43,9 @@ router.get('/sort', (req, res, next) => {
           ])
 
         }).then(result => {
-          
-          useds.push({ id: nextRest.id, name: nextRest.name, date: new Date() })
+          var used = result[0];
+
+          useds.push(used);
           rests = rests.filter(item => item.id !== nextRest.id);
 
           res.json({ yet: rests, already: useds, sorted: nextRest.name });
@@ -88,7 +89,7 @@ router.delete('/remove/:id', (req, res) => {
     }).catch(e1 => {
       console.error(e1);
     });
-    
+
   }).catch(e2 => {
     console.error(e2);
   });
