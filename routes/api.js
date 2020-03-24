@@ -11,4 +11,7 @@ router.get('/sort', actions.sort);
 //remove
 router.delete('/remove/:id', actions.remove);
 
+//bot
+router.post('/bot', actions.bot, actions.sort);
+
 module.exports = router;
