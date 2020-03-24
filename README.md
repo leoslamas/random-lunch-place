@@ -30,7 +30,7 @@ git push heroku
 ### Open SQL
 
 ```
-heroku pg:psql my-postgres-db-2020 --app almoco-random
+heroku pg:psql my-postgres-db-2020 --app (app name)
 ```
 
 ### Run migrations
