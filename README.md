@@ -1,31 +1,44 @@
 # random lunch place
 
-## Prepare
+## Local
+
+### Prepare
 
 ```
 npm install / yarn
 ```
 
-## Build
+### Build
 
 ```
 npm run build
 ```
 
-## Start
+### Start
 
 ```
 npm start
 ```
 
-## Deploy on Heroku
+## Heroku
+
+### Create heroku app
 
 ```
-heroku apps:create
+herou apps:create (app name)
+```
+
+### Create Heroku remote
+
+```
+heroku git:remote --app (app name)
+```
+
+### Deploy to Heroku
+
+```
 git push heroku
 ```
-
-## Heroku
 
 ### Open SQL
 
@@ -36,5 +49,5 @@ heroku pg:psql my-postgres-db-2020 --app (app name)
 ### Run migrations
 
 ```
-heroku run sequelize db:migrate
+heroku run sequelize db:migrate --app (app name)
 ```
