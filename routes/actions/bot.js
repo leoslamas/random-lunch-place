@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
         var temp = res.json;
         res.json = function(json) {
             json = { 
-                text: `Today's lunch place: ${json.sorted}!`
+                text: `Today's lunch place: *${json.sorted}*!`
             };
             temp.apply(this,arguments);
         }
