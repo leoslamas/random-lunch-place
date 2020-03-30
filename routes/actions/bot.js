@@ -1,5 +1,8 @@
 module.exports = (req, res, next) => {
 
+    console.log("Bot Body:");
+    console.log(req.body);
+
     if(req.body.type === "MESSAGE") {
         var temp = res.json;
         res.json = function(json) {

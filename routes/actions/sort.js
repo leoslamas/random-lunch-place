@@ -18,12 +18,6 @@ module.exports = (req, res, next) => {
 
             var nextRest = rests[Math.floor(Math.random() * rests.length)];
 
-            console.log("lastUsed: "+lastUsed.date.getDate());
-            console.log("lastUsed-month: "+lastUsed.date.getMonth());
-            console.log("today: "+today.getDate());
-            console.log("today-month: "+today.getMonth());
-
-
             if (lastUsed == undefined || (today.getDate() !== lastUsed.date.getDate() || today.getMonth() !== lastUsed.date.getMonth())) {
 
                 db.sequelize.transaction(t => {
